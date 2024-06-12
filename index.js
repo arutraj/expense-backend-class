@@ -22,17 +22,22 @@ app.get('/health',(req,res)=>{
 });
 
 // ADD TRANSACTION
-app.post('/transaction', (req,res)=>{
+app.post('/transaction', (req, res) => {
     var response = "";
-    try{
-        t=moment().unix()
-        console.log("{ \"timestamp\" : %d, \"msg\", \"Adding Expense\", \"amount\" : %d, \"Description\": \"%s\" }", t, req.body.amount, req.body.desc);
-        var success = transactionService.addTransaction(req.body.amount,req.body.desc);
-        if (success = 200) res.json({ message: 'added transaction successfully'});
-    }catch (err){
-        res.json({ message: 'something went wrong', error : err.message});
+    try {
+        var t = moment().unix();
+        console.log(`{ "timestamp" : ${t}, "msg": "Adding Expense", "amount" : ${req.body.amount}, "Description": "${req.body.desc}" }`);
+        var result = transactionService.addTransaction(req.body.amount, req.body.desc);
+        if (result.error) {
+            res.status(400).json({ message: 'Failed to add transaction', error: result.error });
+            return;
+        }
+        res.json({ message: 'Added transaction successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Something went wrong', error: err.message });
     }
 });
+
 
 // GET ALL TRANSACTIONS
 app.get('/transaction',(req,res)=>{
