@@ -1,4 +1,4 @@
-FROM            docker.io/node
+FROM            docker.io/node:20
 RUN             useradd expense
 RUN             mkdir /app
 COPY            *.js package.json /app/
