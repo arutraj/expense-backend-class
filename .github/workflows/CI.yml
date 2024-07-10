@@ -43,10 +43,10 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
           tlsSkipVerify: true
           secrets: |
-              secret/data/infra-secrets sonarqube | password ;
+              infra-secrets/data/sonarqube password | sonarqube_password ;
       - uses: actions/checkout@v4
       - name: Start code quality
-        run: /sonar-scanner/sonar-scanner-6.1.0.4477-linux-x64/bin/sonar-scanner  -Dsonar.host.url=http://sonarqube-internal.rdevopsb79.online:9000 -Dsonar.login=admin -Dsonar.password=${{ env.password }} -Dsonar.projectKey=expense-backend
+        run: /sonar-scanner/sonar-scanner-6.1.0.4477-linux-x64/bin/sonar-scanner  -Dsonar.host.url=http://sonarqube-internal.rdevopsb79.online:9000 -Dsonar.login=admin -Dsonar.password=${{ env.sonarqube_password }} -Dsonar.projectKey=expense-backend
 
   security-checks:
     runs-on: self-hosted
