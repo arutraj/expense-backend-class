@@ -27,6 +27,14 @@ jobs:
     runs-on: self-hosted
     needs: [build]
     steps:
+      - uses: actions/checkout@v4
+      - name: Run integration-tests
+        run: echo integration-tests
+
+  code-quality:
+    runs-on: self-hosted
+    needs: [build]
+    steps:
       - name: Import Secrets
         id: secrets
         uses: hashicorp/vault-action@v2
@@ -37,16 +45,8 @@ jobs:
           secrets: |
               secret/data/sonarqube | password ;
       - uses: actions/checkout@v4
-      - name: Run integration tests
+      - name: Start code quality
         run: /sonar-scanner/sonar-scanner-6.1.0.4477-linux-x64/bin/sonar-scanner  -Dsonar.host.url=http://sonarqube-internal.rdevopsb79.online:9000 -Dsonar.login=admin -Dsonar.password=${{ env.password }} -Dsonar.projectKey=expense-backend
-
-  code-quality:
-    runs-on: self-hosted
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Code Quality
-        run:
 
   security-checks:
     runs-on: self-hosted
