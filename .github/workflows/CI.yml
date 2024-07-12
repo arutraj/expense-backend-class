@@ -60,7 +60,7 @@ jobs:
 
   docker-build:
     runs-on: self-hosted
-    needs: [build]
+    needs: [security-checks]
     steps:
       - uses: actions/checkout@v4
       - name: Docker Build
