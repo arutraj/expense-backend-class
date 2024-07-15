@@ -1,5 +1,7 @@
 FROM            docker.io/node:20
-RUN             apt update && apt remove git -y
+RUN             apt update
+RUN             apt autoremove git -y
+
 RUN             useradd expense
 RUN             mkdir /app
 COPY            *.js package.json /app/
