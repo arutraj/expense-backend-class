@@ -73,7 +73,7 @@ jobs:
           echo COUNT=`aws ecr describe-image-scan-findings --repository-name backend --image-id imageTag=${GITHUB_SHA} --query 'imageScanFindings.enhancedFindings[*]' --output table | grep CRITICAL -c`
           if [ ${COUNT} -gt 0 ]; then echo CRITICAL Vulnerabilities found ; exit 1 ; fi
 
-
+#
   deploy-to-dev:
     runs-on: self-hosted
     needs: [docker-build]
