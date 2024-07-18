@@ -1,6 +1,6 @@
 FROM            docker.io/redhat/ubi9:latest
 RUN             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-RUN             nvm install 20
+RUN             source /root/.nvm/nvm.sh ; nvm install 20
 
 RUN             useradd expense
 RUN             mkdir /app
