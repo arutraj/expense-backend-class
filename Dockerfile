@@ -1,4 +1,4 @@
-FROM            docker.io/node:20
+FROM            docker.io/node:20.15.1-slim
 RUN             apt update
 RUN             apt autoremove git -y
 
