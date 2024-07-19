@@ -86,7 +86,7 @@ jobs:
           repository: raghudevopsb79/expense-helm
           path: helm
       - name: Create App
-        run: cd helm ; bash argo.sh dev backend
+        run: cd helm ; bash argo.sh dev backend ${GITHUB_SHA}
 
   deploy-to-qa:
     runs-on: self-hosted
