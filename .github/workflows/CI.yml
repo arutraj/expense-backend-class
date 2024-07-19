@@ -81,8 +81,13 @@ jobs:
     needs: [docker-build]
     steps:
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Checkout helm repo
+        uses: actions/checkout@v4
+        with:
+          repository: raghudevopsb79/expense-helm
+          path: helm
+      - name: Create App
+        run: cd helm ; bash argo.sh dev backend
 
   deploy-to-qa:
     runs-on: self-hosted
